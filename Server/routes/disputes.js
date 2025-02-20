@@ -1,3 +1,4 @@
+//routes/disputes.js
 const express = require('express');
 const { createDispute, getDisputes, updateDispute } = require('../controllers/disputeController'); // Adjust the path as necessary
 

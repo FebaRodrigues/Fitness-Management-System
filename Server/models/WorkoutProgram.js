@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const workoutProgramSchema = new mongoose.Schema({
     trainerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Trainer', required: true },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User ', required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     exercises: [{
         name: { type: String, required: true },
         sets: { type: Number, required: true },

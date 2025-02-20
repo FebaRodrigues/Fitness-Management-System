@@ -5,6 +5,7 @@ const Goal = require('../models/Goal');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Workout = require('../models/Workout');
+const Feedback = require('../models/Feedback'); 
 
 // Register a new trainer
 exports.registerTrainer = async (req, res) => {
@@ -16,13 +17,13 @@ exports.registerTrainer = async (req, res) => {
             return res.status(400).json({ message: 'Trainer with this email already exists' });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
         const newTrainer = new Trainer({ name, email, password: hashedPassword, specialties });
         await newTrainer.save();
 
         res.status(201).json({ message: 'Trainer registered successfully', trainerId: newTrainer._id });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -31,21 +32,18 @@ exports.loginTrainer = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Find the trainer by email
         const trainer = await Trainer.findOne({ email });
         if (!trainer) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Check if the password is correct
         const isMatch = await bcrypt.compare(password, trainer.password);
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Create and assign a token
         const token = jwt.sign({ id: trainer._id, role: 'trainer' }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token, role: 'trainer' }); // Return the role
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

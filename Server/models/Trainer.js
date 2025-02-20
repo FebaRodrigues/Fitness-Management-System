@@ -9,10 +9,11 @@ const trainerSchema = new mongoose.Schema({
     password: { type: String, required: true },
     specialties: { type: [String], required: true },
     approved: { type: Boolean, default: false },
+    role: { type: String, default: 'trainer' }, // Add role field
     createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Trainer', trainerSchema);
+
 
 // Hash the password before saving
 trainerSchema.pre('save', async function(next) {

@@ -1,4 +1,4 @@
-// controllers/userController.js
+// controllers/workoutController.js
 
 const Workout = require('../models/Workout');
 

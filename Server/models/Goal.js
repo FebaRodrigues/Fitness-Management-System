@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const goalSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User ', required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     goalType: { type: String, required: true }, // e.g., weight loss, muscle gain
     targetValue: { type: Number, required: true },
     currentValue: { type: Number, default: 0 },

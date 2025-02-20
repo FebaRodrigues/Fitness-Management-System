@@ -1,3 +1,5 @@
+//routes/recommendations.js
+
 const express = require('express');
 const { createRecommendation, getRecommendations } = require('../controllers/recommendationController'); // Adjust the path as necessary
 
