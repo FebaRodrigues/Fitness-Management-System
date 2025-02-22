@@ -6,8 +6,9 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true, validate: [isEmail, 'Invalid email'] },
     password: { type: String, required: true },
-    role: { type: String, enum: ['user', 'admin', 'trainer'], default: 'user' }, // Add role field
+    role: { type: String, enum: ['user', 'admin', 'trainer'], default: 'user' },
+    image: { type: String, default: "" },
     createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User ', userSchema);

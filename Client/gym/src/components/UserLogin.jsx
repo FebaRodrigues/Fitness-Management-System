@@ -1,9 +1,9 @@
-// src/components/TrainerLogin.jsx
+// src/components/UserLogin.jsx
 import React, { useState } from 'react';
-import { loginTrainer } from '../api'; // Import the loginTrainer function
+import { loginUser  } from '../api'; // Import the loginUser  function
 import { useNavigate } from 'react-router-dom';
 
-const TrainerLogin = () => {
+const UserLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -11,10 +11,10 @@ const TrainerLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await loginTrainer(email, password);
+            const response = await loginUser (email, password);
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('role', response.data.role);
-            navigate('/trainer/dashboard');
+            navigate('/user/dashboard');
         } catch (error) {
             console.error('Login failed:', error);
             alert('Login failed. Please check your credentials.');
@@ -25,9 +25,9 @@ const TrainerLogin = () => {
         <form onSubmit={handleLogin}>
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <button type="submit">Login as Trainer</button>
+            <button type="submit">Login as User</button>
         </form>
     );
 };
 
-export default TrainerLogin;
+export default UserLogin;

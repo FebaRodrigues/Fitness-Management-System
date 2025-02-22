@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const UserActivity = require('../models/UserActivity');
 
 // Register a new admin
-exports.registerUser   = async (req, res) => {
+exports.registerUser  = async (req, res) => {
     const { name, password, email } = req.body; // Only include name, password, and email
 
     try {
@@ -18,10 +18,10 @@ exports.registerUser   = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newAdmin = new Admin({ name, password: hashedPassword, email }); // Save as admin
+        const newAdmin = new Admin({ name, password: hashedPassword, email, role: 'admin' }); // Ensure role is set to 'admin'
         await newAdmin.save();
 
-        res.status(201).json({ message: 'Admin registered successfully', userId: newAdmin._id });
+        res.status(201).json({ message: 'Admin registered successfully', adminId: newAdmin._id });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -39,7 +39,7 @@ exports.loginAdmin = async (req, res) => {
         }
 
         const token = jwt.sign({ id: admin._id, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token, role: 'admin' }); // Ensure role is set to 'admin'
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

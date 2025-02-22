@@ -1,27 +1,37 @@
 // controllers/userController.js
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); 
+const jwt = require('jsonwebtoken');
+const uploadToCloudinary = require("../utilities/imageUpload");
 
 
-// Register a new user
+
+//Register a new user
 exports.register = async (req, res) => {
-    const { name, email, password, phone } = req.body; // Include phone if needed
+    const { name, email, password } = req.body;
+    let image=req.file;
+    console.log("image",image)
 
     try {
-        // Check if the email already exists
         const existingUser  = await User.findOne({ email });
         if (existingUser ) {
             return res.status(400).json({ message: 'User  with this email already exists' });
         }
 
+        
+        const cloudinaryRes = await uploadToCloudinary(image.path);
+    if (!cloudinaryRes) {
+      return res.status(500).json({ error: "Failed to upload image to Cloudinary." });
+    }
+    console.log("image in cloudinary : ", cloudinaryRes);
+
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser  = new User({ name, email, password: hashedPassword, phone }); // Save as user
+        const newUser  = new User({ name, email, password: hashedPassword,image:cloudinaryRes});
         await newUser .save();
 
         res.status(201).json({ message: 'User  registered successfully', userId: newUser ._id });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 };
 

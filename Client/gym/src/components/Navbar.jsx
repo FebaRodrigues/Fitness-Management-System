@@ -1,26 +1,23 @@
+// src/components/Navbar.jsx
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const NavigationBar = () => {
+const Navbar = () => {
     return (
-        <Navbar bg="light" expand="lg" className='custom-nav'>
-            <Navbar.Brand as={Link} to="/">My App</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
-                    <Nav.Link as={Link} to="/about">About</Nav.Link>
-                    <Nav.Link as={Link} to="/classes">Classes</Nav.Link>
-                    <Nav.Link as={Link} to="/schedule">Schedule</Nav.Link>
-                    <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-                    <Nav.Link as={Link} to="/admin-dashboard">Admin Dashboard</Nav.Link>
-                    <Nav.Link as={Link} to="/trainer-dashboard">Trainer Dashboard</Nav.Link>
-                    <Nav.Link as={Link} to="/user-dashboard">User  Dashboard</Nav.Link>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
+        <nav>
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/user/login">User  Login</Link>
+            <Link to="/user/register">User  Register</Link>
+            <Link to="/trainer/login">Trainer Login</Link>
+            <Link to="/trainer/register">Trainer Register</Link>
+            <Link to="/admin/login">Admin Login</Link>
+            <Link to="/admin/register">Admin Register</Link>
+            <Link to="/admin/dashboard">Admin Dashboard</Link>
+            <Link to="/trainer/dashboard">Trainer Dashboard</Link>
+            <Link to="/user/dashboard">User  Dashboard</Link>
+        </nav>
     );
 };
 
-export default NavigationBar;
+export default Navbar;

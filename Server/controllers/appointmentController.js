@@ -91,6 +91,8 @@ exports.updateAppointmentStatus = async (req, res) => {
 
         // Send notification to user
         const user = await User.findById(appointment.userId);
+        if (!user) return res.status(404).json({ message: 'User  not found' });
+
         await sendEmailNotification(user.email, 'Appointment Status Update', `Your appointment has been ${status}.`);
 
         res.status(200).json({ message: 'Appointment status updated successfully', appointment });

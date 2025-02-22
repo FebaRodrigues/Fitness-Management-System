@@ -1,11 +1,10 @@
 import React from 'react';
-import Register from './Register';
 
 const UserDashboard = () => {
     return (
         <div>
-            <h1>User Dashboard</h1>
-            <Register role="user" />
+            <h2>User Dashboard</h2>
+            {/* User functionalities go here */}
         </div>
     );
 };

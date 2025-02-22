@@ -1,11 +1,13 @@
+// src/components/AdminDashboard.jsx
 import React from 'react';
-import Register from './Register';
 
 const AdminDashboard = () => {
     return (
         <div>
-            <h1>Admin Dashboard</h1>
-            <Register role="admin" />
+            <h2>Admin Dashboard</h2>
+            <p>Welcome to the Admin Dashboard!</p>
+            <p>Here you can manage users, trainers, and other administrative tasks.</p>
+            {/* Add admin functionalities here, such as user management, trainer approvals, etc. */}
         </div>
     );
 };

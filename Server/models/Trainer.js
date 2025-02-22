@@ -1,7 +1,5 @@
 // models/Trainer.js
 const mongoose = require('mongoose');
-const { isEmail } = require('validator');
-const bcrypt = require('bcryptjs');
 
 const trainerSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -9,9 +7,12 @@ const trainerSchema = new mongoose.Schema({
     password: { type: String, required: true },
     specialties: { type: [String], required: true },
     approved: { type: Boolean, default: false },
-    role: { type: String, default: 'trainer' }, // Add role field
+    role: { type: String, default: 'trainer' },
+    image: { type: String, default: "" },
     createdAt: { type: Date, default: Date.now },
 });
+
+module.exports = mongoose.model('Trainer', trainerSchema);
 
 
 

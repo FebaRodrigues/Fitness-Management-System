@@ -1,5 +1,7 @@
 // routes/trainerRoutes.js
 const express = require('express');
+const upload=require('../middleware/multer')
+ 
 const {
     registerTrainer,
     loginTrainer,
@@ -8,18 +10,22 @@ const {
     updateTrainer,
     deleteTrainer,
     getClients,
-    getClientProgress
-} = require('../controllers/trainerController');
+    getClientProgress,
+    getTrainerEarnings // Ensure this function is imported
+} = require('../controllers/trainerController'); // Adjust the path as necessary
 const auth = require('../middleware/auth');
+const { image } = require('../config/cloudinaryConfig');
 const router = express.Router();
 
-router.post('/register', registerTrainer);
+
+// router.post('/register', upload.single('image'), registerTrainer);
+router.post('/register',upload.single('image'), registerTrainer)
 router.post('/login', loginTrainer);
-router.get('/', auth(['admin', 'trainer']), getAllTrainers); // Admin and trainers can get all trainers
-router.get('/:trainerId', auth(['admin', 'trainer']), getTrainerById); // Admin and trainers can get a trainer by ID
-router.put('/:trainerId', auth(['admin']), updateTrainer); // Only admin can update a trainer
-router.delete('/:trainerId', auth(['admin']), deleteTrainer); // Only admin can delete a trainer
-router.get('/:trainerId/clients', auth(['trainer']), getClients); // Only trainers can get their clients
-router.get('/progress/:userId', auth(['trainer']), getClientProgress); // Only trainers can get client progress
+router.get('/', auth(['admin', 'trainer']), getAllTrainers);
+router.get('/:trainerId', auth(['admin', 'trainer']), getTrainerById);
+router.put('/:trainerId', auth(['admin']), updateTrainer);
+router.delete('/:trainerId', auth(['admin']), deleteTrainer);
+router.get('/:trainerId/clients', auth(['trainer']), getClients);
+router.get('/progress/:userId', auth(['trainer']), getClientProgress);
 
 module.exports = router;

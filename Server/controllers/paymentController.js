@@ -55,3 +55,15 @@ exports.updatePayment = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+exports.getTrainerEarnings = async (req, res) => {
+    const { trainerId } = req.params; // Get trainerId from request parameters
+    try {
+        const payments = await Payment.find({ trainerId }); // Assuming Payment model has a trainerId field
+        const totalEarnings = payments.reduce((total, payment) => total + payment.amount, 0); // Calculate total earnings
+        res.status(200).json({ totalEarnings });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
