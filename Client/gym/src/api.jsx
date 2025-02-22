@@ -18,14 +18,6 @@ export const loginAdmin = async (email, password) => {
     return await api.post('/admin/login', { email, password });
 };
 
-// Trainer API calls
-export const registerTrainer = async (name, email, password, specialties) => {
-    return await api.post('/trainers/register', { name, email, password, specialties });
-};
-
-export const loginTrainer = async (email, password) => {
-    return await api.post('/trainers/login', { email, password });
-};
 
 // User API calls
 export const registerUser  = async (formData) => {
@@ -38,4 +30,17 @@ export const registerUser  = async (formData) => {
 
 export const loginUser  = async (email, password) => {
     return await api.post('/users/login', { email, password });
+};
+
+// Trainer API calls
+export const registerTrainer = async (formData) => {
+    return await api.post('/trainers/register', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data', // Set the content type for file uploads
+        },
+    });
+};
+
+export const loginTrainer = async (email, password) => {
+    return await api.post('/trainers/login', { email, password });
 };

@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const UserActivity = require('../models/UserActivity');
 
 // Register a new admin
-exports.registerUser  = async (req, res) => {
+exports.registerAdmin  = async (req, res) => {
     const { name, password, email } = req.body; // Only include name, password, and email
 
     try {

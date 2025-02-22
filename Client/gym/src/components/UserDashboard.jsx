@@ -1,10 +1,10 @@
 import React from 'react';
+import UserNavbar from './UserNavbar/UserNavbar';
 
 const UserDashboard = () => {
     return (
         <div>
-            <h2>User Dashboard</h2>
-            {/* User functionalities go here */}
+           <UserNavbar/>
         </div>
     );
 };

@@ -1,7 +1,7 @@
-// src/components/AdminLogin.jsx
 import React, { useState } from 'react';
-import { loginAdmin } from '../api'; // Import the loginAdmin function
+import { loginAdmin } from '../api';
 import { useNavigate } from 'react-router-dom';
+import '../styles/AdminStyle.css';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
@@ -22,11 +22,13 @@ const AdminLogin = () => {
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <button type="submit">Login as Admin</button>
-        </form>
+        <div className="admin-auth-container">
+            <form className="admin-auth-form" onSubmit={handleLogin}>
+                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <button type="submit"> Admin Login</button>
+            </form>
+        </div>
     );
 };
 

@@ -1,5 +1,7 @@
 // src/App.jsx
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AdminLogin from './components/AdminLogin';
@@ -20,17 +22,17 @@ const App = () => {
     return (
         <AuthProvider>
             <Router>
-                <Navbar />
+                {/* <Navbar /> */}
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin/register" element={<AdminRegister />} />
-                    <Route path="/trainer/login" element={<TrainerLogin />} />
-                    <Route path="/trainer/register" element={<TrainerRegister />} />
-                    <Route path="/user/login" element={<UserLogin />} />
-                    <Route path="/user/register" element={<UserRegister />} /> {/* Ensure this route is defined */}
+                    <Route path="/trainers/login" element={<TrainerLogin />} />
+                    <Route path="/trainers/register" element={<TrainerRegister />} />
+                    <Route path="/users/login" element={<UserLogin />} />
+                    <Route path="/users/register" element={<UserRegister />} /> 
                     <Route path="/admin/dashboard" element={<AdminDashboard />} />
                     <Route path="/trainer/dashboard" element={<TrainerDashboard />} />
                     <Route path="/user/dashboard" element={<UserDashboard />} />

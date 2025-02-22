@@ -3,7 +3,7 @@ const express = require('express');
 const { 
     manageUsers, 
     approveTrainer, 
-    registerUser , 
+    registerAdmin , 
     loginAdmin, 
     getAllTrainersForAdmin, 
     getTrainerByIdForAdmin,
@@ -13,7 +13,7 @@ const {
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.post('/register', registerUser );
+router.post('/register', registerAdmin );
 router.post('/login', loginAdmin);
 router.get('/users', auth(['admin']), manageUsers); // Only admin can manage users
 router.post('/approve-trainer', auth(['admin']), approveTrainer);

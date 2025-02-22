@@ -1,0 +1,125 @@
+/* Navbar Base Styles */
+.navbar {
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* Navbar Container */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+/* Logo */
+.logo a {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.logo a span {
+    color: #ff4500; /* Highlight color */
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover & Active Effects */
+.nav-links a:hover,
+.nav-links a.active {
+    color: #ff4500; /* Highlight color */
+}
+
+/* Underline Effect on Hover */
+.nav-links a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0;
+    background: #ff4500;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5px;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Sign Up Button */
+.nav-links li:last-child a {
+    background: #ff4500;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.nav-links li:last-child a:hover {
+    background: #e63900;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    background: white;
+    height: 3px;
+    width: 25px;
+    margin: 4px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Mobile Menu */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 15px;
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}

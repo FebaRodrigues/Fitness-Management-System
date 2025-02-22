@@ -1,0 +1,90 @@
+
+  
+
+  /* Button Styles */
+  .trainer-auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ebeef2; /* Blue background */
+  }
+  
+  /* Card Style */
+  .trainer-auth-card {
+    background: rgb(226, 223, 223);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-top: 80px;
+  }
+  
+  /* Form Styles */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="file"],
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  input[type="file"] {
+    border: none;
+  }
+  
+
+
+
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  .auth-switch-text {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .auth-switch-text a {
+    color: #0056b3;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .auth-switch-text a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .card {
+      max-width: 90%;
+    }
+  }
+  
