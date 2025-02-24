@@ -1,0 +1,70 @@
+/* Footer.css */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6) !important; /* Ensure transparency */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-weight: 500;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+/* Hover effects */
+.social-icons a:hover {
+    color: #ffcc00; /* Yellow color on hover */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .footer {
+        font-size: 14px;
+    }
+
+    .social-icons a {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        padding: 15px 0;
+    }
+
+    .social-icons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .social-icons a {
+        font-size: 14px;
+    }
+}

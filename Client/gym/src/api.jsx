@@ -30,6 +30,7 @@ export const registerUser  = async (formData) => {
 
 export const loginUser  = async (email, password) => {
     return await api.post('/users/login', { email, password });
+    return response.data;
 };
 
 // Trainer API calls
@@ -44,3 +45,13 @@ export const registerTrainer = async (formData) => {
 export const loginTrainer = async (email, password) => {
     return await api.post('/trainers/login', { email, password });
 };
+
+// Update user profile
+export const updateUser = async (userId, updatedData) => {
+    return await api.put(`/users/${userId}`, updatedData);
+};
+
+export const getUserById = async (userId) => {
+    return await api.get(`/users/${userId}`);
+};
+

@@ -1,10 +1,14 @@
 //routes/workouts.js
-const express = require('express');
-const { recordWorkout, getWorkouts, getAllWorkouts } = require('../controllers/workoutController');
+const express = require("express");
+const { createWorkout, getWorkouts } = require("../controllers/workoutController");
+
 const router = express.Router();
 
-router.post('/', recordWorkout);
-router.get('/:userId', getWorkouts);
-router.get('/all/:userId', getAllWorkouts); // Get all workouts for a user
+// Create a workout
+router.post("/", createWorkout);
+
+// Get workouts for a user
+router.get("/user/:userId", getWorkouts);
 
 module.exports = router;
+

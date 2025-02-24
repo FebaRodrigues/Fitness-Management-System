@@ -9,32 +9,42 @@ const uploadToCloudinary = require("../utilities/imageUpload");
 //Register a new user
 exports.register = async (req, res) => {
     const { name, email, password } = req.body;
-    let image=req.file;
-    console.log("image",image)
+    let image = req.file ? req.file.path : null;
 
     try {
-        const existingUser  = await User.findOne({ email });
-        if (existingUser ) {
-            return res.status(400).json({ message: 'User  with this email already exists' });
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User with this email already exists" });
         }
 
-        
-        const cloudinaryRes = await uploadToCloudinary(image.path);
-    if (!cloudinaryRes) {
-      return res.status(500).json({ error: "Failed to upload image to Cloudinary." });
-    }
-    console.log("image in cloudinary : ", cloudinaryRes);
+        let cloudinaryRes = null;
+        if (image) {
+            cloudinaryRes = await uploadToCloudinary(image);
+            if (!cloudinaryRes) {
+                return res.status(500).json({ error: "Failed to upload image to Cloudinary." });
+            }
+        }
 
+        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser  = new User({ name, email, password: hashedPassword,image:cloudinaryRes});
-        await newUser .save();
 
-        res.status(201).json({ message: 'User  registered successfully', userId: newUser ._id });
+        // Create new user
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+            image: cloudinaryRes ? cloudinaryRes.secure_url : null,
+        });
+
+        await newUser.save();
+
+        res.status(201).json({ message: "User registered successfully", userId: newUser._id });
     } catch (error) {
+        console.error("Error in register:", error);
         res.status(500).json({ error: error.message });
     }
 };
-
 // Login user
 exports.login = async (req, res) => {
     const { email, password } = req.body;
@@ -44,7 +54,8 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ message: 'Login successful', token });
+        res.json({ message: 'Login successful', token, 
+            user: { id: user._id, name: user.name, email: user.email, role: user.role, image: user.image } });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

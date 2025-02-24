@@ -63,3 +63,28 @@
         padding: 10px 20px;
     }
 }
+/* Ensure Home page takes full height */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Allow the hero section to take available space */
+.hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* /* Footer always stays at the bottom */
+.footer {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+} 
+

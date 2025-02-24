@@ -1,37 +1,47 @@
 // controllers/workoutController.js
 
-const Workout = require('../models/Workout');
+const Workout = require("../models/Workout");
 
-// Record a workout
-exports.recordWorkout = async (req, res) => {
-    const { userId, exercises } = req.body;
-    const workout = new Workout({ userId, exercises });
+// Create Workout
+exports.createWorkout = async (req, res) => {
     try {
+        const { userId, category, exercises, date, notes } = req.body;
+
+        if (!userId || !category || !Array.isArray(exercises) || exercises.length === 0) {
+            return res.status(400).json({ error: "Missing required fields: userId, category, and exercises" });
+        }
+
+        const workout = new Workout({
+            userId,
+            category,
+            exercises,
+            date: date || Date.now(),
+            notes: notes || ""
+        });
+
         await workout.save();
-        res.status(201).json({ message: 'Workout recorded successfully' });
+        res.status(201).json(workout);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                error: 'Validation Error',
+                details: error.errors
+            });
+        }
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-// Get workouts for a user
+// Get Workouts for a User
+// controllers/workoutController.js
 exports.getWorkouts = async (req, res) => {
-    const { userId } = req.params;
     try {
-        const workouts = await Workout.find({ userId });
+        const { userId } = req.params;
+        const workouts = await Workout.find({ userId }).sort({ date: -1 });
         res.status(200).json(workouts);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error("Error fetching workouts:", error); // Log the error for debugging
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
 
-// Get all workouts for a user
-exports.getAllWorkouts = async (req, res) => {
-    const { userId } = req.params;
-    try {
-        const workouts = await Workout.find({ userId });
-        res.status(200).json(workouts);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};

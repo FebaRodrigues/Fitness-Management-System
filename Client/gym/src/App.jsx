@@ -12,15 +12,28 @@ import UserLogin from './components/UserLogin';
 import UserRegister from './components/UserRegister'; // Ensure this is imported
 import AdminDashboard from './components/AdminDashboard'; // Assuming you have this component
 import TrainerDashboard from './components/TrainerDashboard'; // Assuming you have this component
-import UserDashboard from './components/UserDashboard'; // Assuming you have this component
+// import UserDashboard from './components/UserDashboard'; // Assuming you have this component
 import Home from './pages/Home'; // Assuming you have this component
 import About from './pages/About'; // Assuming you have this component
 import Contact from './pages/Contact'; // Assuming you have this component
-import { AuthProvider } from './context/AuthContext'; // Assuming you have an AuthContext for managing authentication
+
+
+
+import UserDashboard from './components/UserDashboard/UserDashboard';
+import UserProfile from './components/UserDashboard/UserProfile';
+import MyWorkouts from './components/UserDashboard/MyWorkouts';
+import WorkoutHistory from './components/UserDashboard/WorkoutHistory';
+import Goals from './components/UserDashboard/Goals';
+import Messages from './components/UserDashboard/Messages';
+import Nutrition from './components/UserDashboard/Nutrition';
+import Appointments from './components/UserDashboard/Appointments';
+import Feedback from './components/UserDashboard/Feedback';
+import UserGoalForm from './components/UserDashboard/Goals';
+
 
 const App = () => {
     return (
-        <AuthProvider>
+      
             <Router>
                 {/* <Navbar /> */}
                 <Routes>
@@ -35,10 +48,24 @@ const App = () => {
                     <Route path="/users/register" element={<UserRegister />} /> 
                     <Route path="/admin/dashboard" element={<AdminDashboard />} />
                     <Route path="/trainer/dashboard" element={<TrainerDashboard />} />
-                    <Route path="/user/dashboard" element={<UserDashboard />} />
+                   
+                
+                    <Route path="/user/dashboard" element={<UserDashboard />}>
+    <Route path="profile" element={<UserProfile />} />
+    <Route path="my-workouts" element={<MyWorkouts />} /> 
+     <Route path="workout-history" element={<WorkoutHistory />} />
+    <Route path="goals" element={<UserGoalForm/>} />
+    <Route path="messages" element={<Messages />} />
+    <Route path="nutrition" element={<Nutrition />} />
+    <Route path="appointments" element={<Appointments />} />
+    <Route path="feedback" element={<Feedback />} />
+</Route>
+
+                
+                
                 </Routes>
             </Router>
-        </AuthProvider>
+      
     );
 };
 

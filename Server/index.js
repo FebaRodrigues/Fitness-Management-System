@@ -26,9 +26,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
+app.use(express.json());
+app.use(
+    cors({
+      origin: "http://localhost:5173", // Allow only frontend URL
+      credentials: true, // Allow cookies & authentication headers
+    })
+  );
 
 // Define your routes
 app.use('/api/workouts', workoutRoutes);
