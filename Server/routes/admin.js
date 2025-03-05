@@ -8,7 +8,9 @@ const {
     getAllTrainersForAdmin, 
     getTrainerByIdForAdmin,
     getUserActivity,
-    createUserActivity 
+    createUserActivity,
+    getAdminProfile,
+    updateAdminProfile
 } = require('../controllers/adminController');
 const auth = require('../middleware/auth');
 const router = express.Router();
@@ -21,5 +23,7 @@ router.get('/trainers', auth(['admin']), getAllTrainersForAdmin);
 router.get('/trainers/:trainerId', auth(['admin']), getTrainerByIdForAdmin);
 router.get('/user-activity/:id', auth(['admin']), getUserActivity);
 router.post('/user-activity', auth(['admin']), createUserActivity);
+router.get('/profile', auth(['admin']), getAdminProfile);
+router.put('/profile', auth(['admin']), updateAdminProfile);
 
 module.exports = router;

@@ -48,11 +48,11 @@ exports.updateAppointmentStatus = async (req, res) => {
 exports.getAppointmentsForTrainer = async (req, res) => {
     const { trainerId } = req.params;
     try {
-        const appointments = await Appointment.find({ trainerId });
-        res.status(200).json(appointments);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+        const appointments = await Appointment.find({ trainerId }).populate("userId", "name email");
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 

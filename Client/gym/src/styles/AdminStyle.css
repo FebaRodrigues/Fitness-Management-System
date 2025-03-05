@@ -49,3 +49,19 @@
         width: 90%;
     }
 }
+
+/* src/styles/AdminStyle.css */
+.admin-greeting {
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .admin-greeting h2 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .admin-greeting p {
+    font-size: 1.2rem;
+    color: #666;
+  }

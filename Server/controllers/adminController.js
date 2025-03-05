@@ -14,16 +14,16 @@ exports.registerAdmin  = async (req, res) => {
         // Check if the email already exists
         const existingAdmin = await Admin.findOne({ email });
         if (existingAdmin) {
-            return res.status(400).json({ message: 'Admin with this email already exists' });
+            return res.status(400).json({success:false, message: 'Admin with this email already exists' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newAdmin = new Admin({ name, password: hashedPassword, email, role: 'admin' }); // Ensure role is set to 'admin'
         await newAdmin.save();
 
-        res.status(201).json({ message: 'Admin registered successfully', adminId: newAdmin._id });
+        res.status(201).json({success:true, message: 'Admin registered successfully', adminId: newAdmin._id });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({success:false, error: error.message });
     }
 };
 
@@ -148,3 +148,35 @@ exports.createUserActivity = async (req, res) => {
         res.status(500).json({ error: error.message }); // Handle any errors
     }
 };
+
+// Get admin profile
+exports.getAdminProfile = async (req, res) => {
+    try {
+      const adminId = req.user.id; // Extracted from JWT token via auth middleware
+      const admin = await Admin.findById(adminId).select('-password'); // Exclude password
+      if (!admin) {
+        return res.status(404).json({ message: 'Admin not found' });
+      }
+      res.status(200).json(admin);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  exports.updateAdminProfile = async (req, res) => {
+    const adminId = req.user.id;
+    const { name, email } = req.body;
+  
+    try {
+      const admin = await Admin.findById(adminId);
+      if (!admin) return res.status(404).json({ message: 'Admin not found' });
+  
+      if (name) admin.name = name;
+      if (email) admin.email = email;
+  
+      await admin.save();
+      res.status(200).json({ message: 'Profile updated successfully', admin });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };

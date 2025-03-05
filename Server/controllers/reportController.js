@@ -1,26 +1,15 @@
-//controllers/reportController.js
-
-const User = require('../models/User');
+// controllers/reportController.js
 const Payment = require('../models/Payment');
-const Workout = require('../models/Workout');
+const User = require('../models/User');
 
-// Generate user activity report
-exports.generateUserReport = async (req, res) => {
-    const { userId } = req.params;
+exports.getRevenueReport = async (req, res) => {
+    const payments = await Payment.find();
+    const totalRevenue = payments.reduce((sum, p) => sum + p.amount, 0);
+    res.status(200).json({ totalRevenue, paymentCount: payments.length });
+};
 
-    try {
-        const user = await User.findById(userId);
-        const payments = await Payment.find({ userId });
-        const workouts = await Workout.find({ userId });
-
-        const report = {
-            user,
-            payments,
-            workouts,
-        };
-
-        res.status(200).json(report);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+exports.getUserActivity = async (req, res) => {
+    const users = await User.find();
+    const activeUsers = users.filter(u => u.lastLogin > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)); // Last 30 days
+    res.status(200).json({ activeUserCount: activeUsers.length, totalUsers: users.length });
 };

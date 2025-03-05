@@ -1,9 +1,9 @@
-//config/db.js
+// config/db.js
 
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-    try {
+   try {
         await mongoose.connect(process.env.MONGO_URI);
         console.log('MongoDB Atlas connected');
     } catch (error) {
@@ -13,3 +13,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+

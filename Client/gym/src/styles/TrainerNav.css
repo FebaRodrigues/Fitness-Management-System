@@ -1,92 +1,43 @@
-/* ====== Navbar Base Styles ====== */
-.trainerNav {
-    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    transition: background 0.3s ease-in-out;
+.trainer-navbar {
+    background-color: #222;
+    color: white;
+    padding: 15px 20px;
 }
 
-/* ====== Navbar Container ====== */
-.trainerNav .container {
+.trainer-navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    margin: auto;
 }
 
-/* ====== Logo Styling ====== */
-.logo a {
-    font-size: 1.8rem;
-    font-weight: bold;
+.trainer-navbar .logo a {
     color: white;
     text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.logo a span {
-    color: #ff4500; /* Highlight color */
-}
-
-/* ====== Navigation Links ====== */
-.trainerNavList {
+.trainer-navbar .nav-links {
     list-style: none;
     display: flex;
     gap: 20px;
 }
 
-.trainerNavList li {
-    position: relative;
+.trainer-navbar .nav-links li {
+    display: inline;
 }
 
-.trainerNavList a {
+.trainer-navbar .nav-links a {
     color: white;
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: color 0.3s ease-in-out;
+    font-size: 16px;
+    transition: 0.3s;
 }
 
-/* ====== Active & Hover Effects ====== */
-.trainerNavList a:hover,
-.trainerNavList a.active {
-    color: #ff4500; /* Highlight color */
+.trainer-navbar .nav-links a:hover {
+    color: #f4a261;
 }
 
-/* Underline Effect on Hover */
-.trainerNavList a::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 0;
-    background: #ff4500;
-    transition: width 0.3s ease-in-out;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -5px;
-}
-
-.trainerNavList a:hover::after {
-    width: 100%;
-}
-
-/* ====== Sign Up Button ====== */
-.signup-btn {
-    background: #ff4500;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background 0.3s ease-in-out;
-}
-
-.signup-btn:hover {
-    background: #e63900;
-}
-
-/* ====== Hamburger Menu ====== */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -94,50 +45,31 @@
 }
 
 .hamburger span {
-    background: white;
-    height: 3px;
     width: 25px;
-    margin: 4px 0;
-    transition: all 0.3s ease-in-out;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    transition: 0.3s;
 }
 
-/* Hamburger Animation */
-.hamburger.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.open span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* ====== Responsive Styles ====== */
+/* Responsive Design */
 @media (max-width: 768px) {
+    .trainer-navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #222;
+        position: absolute;
+        width: 100%;
+        top: 60px;
+        left: 0;
+        padding: 10px;
+    }
+
+    .trainer-navbar .nav-links.active {
+        display: flex;
+    }
+
     .hamburger {
         display: flex;
-    }
-
-    .trainerNavList {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-        gap: 15px;
-        display: none;
-    }
-
-    .trainerNavList.active {
-        display: flex;
-    }
-
-    .trainerNavList li {
-        margin: 10px 0;
     }
 }

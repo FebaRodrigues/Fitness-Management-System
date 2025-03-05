@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/About.css"; // Import the CSS file
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const About = () => {
   const programs = [
@@ -60,6 +61,7 @@ const About = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };

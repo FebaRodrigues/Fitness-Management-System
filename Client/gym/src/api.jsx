@@ -1,57 +1,106 @@
 // src/api.jsx
 import axios from 'axios';
 
-// Set the base URL for your API
-const API_URL = 'http://localhost:5050/api';
-
-// Create an instance of axios
-const api = axios.create({
-    baseURL: API_URL,
+const API = axios.create({
+    baseURL: 'http://localhost:5050/api', // Adjust the base URL as needed
+    withCredentials: true,
 });
 
-// Admin API calls
-export const registerAdmin = async (name, email, password) => {
-    return await api.post('/admin/register', { name, email, password });
+// Set up the interceptor to include the token in the headers
+API.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+// User API
+export const loginUser = (email, password) => {
+    return API.post('/users/login', { email, password });
 };
 
-export const loginAdmin = async (email, password) => {
-    return await api.post('/admin/login', { email, password });
+export const registerUser = (data) => {
+    return API.post('/users/register', data);
+};
+
+export const getUserById = () => {
+    return API.get('/users/profile');
+};
+
+export const updateUser = (data) => {
+    return API.put('/users/profile', data);
+};
+
+// Trainer API
+export const loginTrainer = (email, password) => {
+    return API.post('/trainers/login', { email, password });
+};
+
+export const registerTrainer = (data) => {
+    return API.post('/trainers/register', data);
+};
+
+// Admin API
+export const loginAdmin = (email, password) => {
+    return API.post('/admin/login', { email, password });
+};
+
+export const registerAdmin = (name, email, password) => {
+    return API.post('/admin/register', { name, email, password });
+};
+
+export const getAdminProfile = () => {
+    return API.get('/admin/profile');
+};
+// src/api.jsx
+export const updateAdminProfile = (data) => {
+    return API.put('/admin/profile', data);
+  };
+
+// Goals API
+export const getGoalsByUserId = (userId) => {
+    return API.get(`/goals/${userId}`);
+};
+
+export const createGoal = (goalData) => {
+    return API.post('/goals', goalData);
+};
+
+export const deleteGoal = (goalId) => {
+    return API.delete(`/goals/${goalId}`);
+};
+
+// Workouts API
+export const getWorkoutsByUserId = (userId) => {
+    return API.get(`/workouts/user/${userId}`);
+};
+
+export const createWorkout = (workoutData) => {
+    return API.post('/workouts', workoutData);
+};
+
+export const deleteWorkout = (workoutId) => {
+    return API.delete(`/workouts/${workoutId}`);
 };
 
 
-// User API calls
-export const registerUser  = async (formData) => {
-    return await api.post('/users/register', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data', // Set the content type for file uploads
-        },
+
+
+  
+
+export const updateTrainerProfile = async (trainerId, data) => {
+    return await API.put(`/trainers/profile/${trainerId}`, data);
+};
+
+export const getTrainerProfileById = async (trainerId) => {
+    return await API.get(`/trainers/profile/${trainerId}?t=${Date.now()}`, {
+      headers: {
+        "Cache-Control": "no-cache",
+      },
     });
-};
+  };
 
-export const loginUser  = async (email, password) => {
-    return await api.post('/users/login', { email, password });
-    return response.data;
-};
 
-// Trainer API calls
-export const registerTrainer = async (formData) => {
-    return await api.post('/trainers/register', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data', // Set the content type for file uploads
-        },
-    });
-};
 
-export const loginTrainer = async (email, password) => {
-    return await api.post('/trainers/login', { email, password });
-};
-
-// Update user profile
-export const updateUser = async (userId, updatedData) => {
-    return await api.put(`/users/${userId}`, updatedData);
-};
-
-export const getUserById = async (userId) => {
-    return await api.get(`/users/${userId}`);
-};
-
+export default API;
